@@ -112,7 +112,11 @@ module.exports = function(irc) {
 
     irc.on('001', function(e) {
         (irc.config.channels || []).forEach(function(c) {
-            irc.send('join', c);
+            var cs = c.split(" ");
+            if (cs.length == 1)
+                irc.send('join', cs[0]);
+            else
+                irc.send('join', cs[0], cs[1]);
         });
     });
 }
